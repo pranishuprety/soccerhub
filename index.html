@@ -9,17 +9,31 @@
 <body>
     <header>
         <h1>Soccer Hub: Your Sports Home</h1>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle between dark and light mode">🌞 Toggle Dark/Light Mode 🌙</button>
     </header>
 
     <main>
-        <div>
-            <h2>Coming Soon!</h2>
-        </div>
+        <section id="standings">
+            <h2>Premier League Standings</h2>
+            <div id="epl-standings"></div>
+
+            <h2>La Liga Standings</h2>
+            <div id="laliga-standings"></div>
+
+            <h2>UEFA Champions League Standings</h2>
+            <div id="ucl-standings"></div>
+        </section>
+
+        <section id="matches">
+            <h2>Weekly Matches</h2>
+            <div id="weekly-matches"></div>
+        </section>
     </main>
 
     <footer>
         <p>Created by Pranish Uprety</p>
     </footer>
     
+    <script src="script.js"></script>
 </body>
 </html>
