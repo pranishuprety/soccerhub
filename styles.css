@@ -162,7 +162,22 @@ body {
     outline: 2px solid #0056b3;
     outline-offset: 3px;
   }
+
   
+
+  /* weekly match report */
+#past-week, #live-score-section {
+    margin-bottom: 20px;
+}
+
+#past-week h2, #live-score-section h2 {
+    margin-bottom: 10px;
+    text-align: left;
+    border-bottom: 2px solid #004080;
+    padding-bottom: 5px;
+}
+
+
   /* Responsive Design */
   @media (max-width: 600px) {
     header, footer {

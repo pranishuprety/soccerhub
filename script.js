@@ -98,11 +98,18 @@ function displayMatches(matches) {
 
 // Load Data on Page Load
 document.addEventListener("DOMContentLoaded", () => {
-    fetchStandings(standingsURLs.epl, eplContainer); // Fetch EPL standings
-    fetchStandings(standingsURLs.laliga, laligaContainer); // Fetch La Liga standings
-    fetchStandings(standingsURLs.ucl, uclContainer); // Fetch UCL standings
-    fetchWeeklyMatches(); // Fetch matches for the week
+    // for standings
+    fetchStandings(standingsURLs.epl, eplContainer);
+    fetchStandings(standingsURLs.laliga, laligaContainer);
+    fetchStandings(standingsURLs.ucl, uclContainer);
+    fetchWeeklyMatches();
+
+    // for live matches and weekly report
+    fetchPastWeekScores(pastWeekURLs.epl, pastWeekEPLContainer); // Fetch EPL past week scores
+    fetchPastWeekScores(pastWeekURLs.laliga, pastWeekLaLigaContainer); // Fetch La Liga past week scores
+    fetchLiveScores(); // Fetch live scores
 });
+
 
 
 // Dark/Light Mode Toggle
@@ -126,3 +133,102 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 });
+
+
+// Past weeks score
+// Past Week Scores: EPL and La Liga
+const pastWeekURLs = {
+    epl: 'https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2024&from=2024-12-02&to=2024-12-08',
+    laliga: 'https://api-football-v1.p.rapidapi.com/v3/fixtures?league=140&season=2024&from=2024-12-02&to=2024-12-08'
+};
+
+// DOM Elements for Past Week Scores
+const pastWeekEPLContainer = document.querySelector("#past-week-epl");
+const pastWeekLaLigaContainer = document.querySelector("#past-week-laliga");
+
+// Function to Fetch Past Week Scores
+async function fetchPastWeekScores(url, container) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        displayPastWeekScores(data.response, container);
+    } catch (error) {
+        console.error('Error fetching past week scores:', error);
+        container.innerHTML = '<p>Error loading past week scores. Please try again later.</p>';
+    }
+}
+
+// Function to Display Past Week Scores
+function displayPastWeekScores(matches, container) {
+    container.innerHTML = ''; // Clear existing content
+
+    if (matches.length === 0) {
+        container.innerHTML = '<p>No matches found for the past week.</p>';
+        return;
+    }
+
+    matches.forEach(match => {
+        const matchCard = document.createElement('div');
+        matchCard.classList.add('match-card');
+
+        matchCard.innerHTML = `
+            <h3>${match.teams.home.name} vs ${match.teams.away.name}</h3>
+            <p>Score: ${match.goals.home ?? '-'} - ${match.goals.away ?? '-'}</p>
+            <p>Date: ${new Date(match.fixture.date).toLocaleString()}</p>
+        `;
+
+        container.appendChild(matchCard);
+    });
+}
+
+
+
+// live  scores
+// Live Scores API Endpoint
+const liveScoresURL = 'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all';
+
+// DOM Element for Live Scores
+const liveScoreContainer = document.querySelector("#live-score");
+
+// Function to Fetch Live Scores
+async function fetchLiveScores() {
+    try {
+        const response = await fetch(liveScoresURL, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        displayLiveScores(data.response);
+    } catch (error) {
+        console.error('Error fetching live scores:', error);
+        liveScoreContainer.innerHTML = '<p>Error loading live scores. Please try again later.</p>';
+    }
+}
+
+// Function to Display Live Scores
+function displayLiveScores(matches) {
+    liveScoreContainer.innerHTML = ''; // Clear existing content
+
+    if (matches.length === 0) {
+        liveScoreContainer.innerHTML = '<p>No live matches at the moment.</p>';
+        return;
+    }
+
+    matches.forEach(match => {
+        const matchCard = document.createElement('div');
+        matchCard.classList.add('match-card');
+
+        matchCard.innerHTML = `
+            <h3>${match.teams.home.name} vs ${match.teams.away.name}</h3>
+            <p>Score: ${match.goals.home ?? '-'} - ${match.goals.away ?? '-'}</p>
+            <p>Time: ${match.fixture.status.elapsed ?? 'Ongoing'}'</p>
+        `;
+
+        liveScoreContainer.appendChild(matchCard);
+    });
+}
