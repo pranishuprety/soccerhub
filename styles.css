@@ -1,201 +1,209 @@
-/* General Styles */
+/* General Reset and Base Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f8f9fa;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Main Sections */
+main {
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  background-color: #f9f9f9;
+}
+
+section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #1e3c72;
+}
+
+section h4 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #1e3c72;
+}
+
+
+
+/* Cards Styling */
+.team-card,
+.match-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.team-card:hover,
+.match-card:hover {
+  transform: scale(1.05);
+  background-color: #eaeaea;
+}
+
+.team-card div,
+.match-card div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.team-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.team-card p,
+.match-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Scrollable Sections */
+#epl-standings,
+#laliga-standings,
+#ucl-standings,
+#past-week-epl,
+#past-week-laliga {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 1rem;
+  overflow-x: auto;
+}
+
+#epl-standings::-webkit-scrollbar,
+#laliga-standings::-webkit-scrollbar,
+#ucl-standings::-webkit-scrollbar {
+  width: 8px;
+}
+
+#epl-standings::-webkit-scrollbar-thumb,
+#laliga-standings::-webkit-scrollbar-thumb,
+#ucl-standings::-webkit-scrollbar-thumb {
+  background-color: #2a5298;
+  border-radius: 4px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+  font-size: 1rem;
+}
+
+/* Dark Mode Styling */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e7ff;
+}
+
+body.dark-mode section {
+  background-color: #1e1e1e;
+  color: #e0e7ff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .team-card,
+body.dark-mode .match-card {
+  background-color: #292929;
+  color: #e0e7ff;
+}
+
+body.dark-mode .team-card:hover,
+body.dark-mode .match-card:hover {
+  background-color: #444;
+}
+
+body.dark-mode footer {
+  background: linear-gradient(135deg, #292929, #444);
+}
+
+body.dark-mode .theme-toggle {
+  border: 2px solid #e0e7ff;
+  color: #e0e7ff;
+}
+
+body.dark-mode .theme-toggle:hover {
+  background-color: rgba(224, 231, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+      font-size: 2rem;
   }
-  
-  header {
-    background-color: #004080;
-    color: white;
-    text-align: center;
-    padding: 20px;
+
+  section h2 {
+      font-size: 1.5rem;
   }
-  
-  main {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  footer {
-    background-color: #004080;
-    color: white;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  /* Standings and Match Tables */
-  #standings, #matches {
-    margin-bottom: 20px;
-  }
-  
-  #standings h2, #matches h2 {
-    margin-bottom: 10px;
-    text-align: left;
-    border-bottom: 2px solid #004080;
-    padding-bottom: 5px;
-  }
-  
-  /* Team Card (Standings) */
-  .team-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-    margin: 5px 0;
-    background-color: #e0e7ff;
-    border: 1px solid #004080;
-    border-radius: 5px;
-    font-size: 14px; 
-    line-height: 1.2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
+
   .team-card img {
-    width: 30px; 
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
+      width: 40px;
+      height: 40px;
   }
-  
-  .team-card p {
-    margin: 0;
-  }
-  
-  /* Match Card */
-  .match-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8px;
-    margin: 5px 0;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px; /
-    line-height: 1.2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .match-card h3 {
-    margin: 0 0 5px;
-    font-size: 14px; 
-  }
-  
+
+  .team-card p,
   .match-card p {
-    margin: 2px 0;
+      font-size: 0.9rem;
   }
-  
-  /* Scrollable Containers */
-  #epl-standings, #laliga-standings, #ucl-standings, #weekly-matches {
-    max-height: 285px; /* 285px to fit top 5 teams perfectly */
-    overflow-y: auto; /* Enable vertical scrolling */
-    scrollbar-width: thin; /* For Firefox */
-  }
-  
-  #epl-standings::-webkit-scrollbar, 
-  #laliga-standings::-webkit-scrollbar, 
-  #ucl-standings::-webkit-scrollbar, 
-  #weekly-matches::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  #epl-standings::-webkit-scrollbar-thumb, 
-  #laliga-standings::-webkit-scrollbar-thumb, 
-  #ucl-standings::-webkit-scrollbar-thumb, 
-  #weekly-matches::-webkit-scrollbar-thumb {
-    background-color: #004080;
-    border-radius: 5px;
-  }
-  
-  #epl-standings::-webkit-scrollbar-track, 
-  #laliga-standings::-webkit-scrollbar-track, 
-  #ucl-standings::-webkit-scrollbar-track, 
-  #weekly-matches::-webkit-scrollbar-track {
-    background-color: #e0e7ff;
-  }
-  
-  /* Dark Mode Styles */
-  .dark-mode {
-    background-color: #121212;
-    color: #f4f4f4;
-  }
-  
-  .dark-mode header, .dark-mode footer {
-    background-color: #1f1f1f;
-    color: #e0e7ff;
-  }
-  
-  .dark-mode .team-card, .dark-mode .match-card {
-    background-color: #333;
-    border-color: #e0e7ff;
-    color: #f4f4f4;
-  }
-  
-  /* Dark/Light Mode Toggle Button */
-  .theme-toggle {
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 14px;
-    margin-top: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .theme-toggle:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  .theme-toggle:focus {
-    outline: 2px solid #0056b3;
-    outline-offset: 3px;
-  }
-
-  
-
-  /* weekly match report */
-#past-week, #live-score-section {
-    margin-bottom: 20px;
 }
-
-#past-week h2, #live-score-section h2 {
-    margin-bottom: 10px;
-    text-align: left;
-    border-bottom: 2px solid #004080;
-    padding-bottom: 5px;
-}
-
-
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    header, footer {
-      font-size: 1em;
-    }
-  
-    .team-card img {
-      width: 24px; /* Smaller logo size for mobile */
-      height: 24px;
-    }
-  
-    .team-card, .match-card {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    #epl-standings, #laliga-standings, #ucl-standings, #weekly-matches {
-      max-height: 200px; /* Adjust for smaller screens */
-    }
-  }
-  
