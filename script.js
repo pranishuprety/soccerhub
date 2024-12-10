@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Past weeks score
 // Past Week Scores: EPL and La Liga
 const pastWeekURLs = {
     epl: 'https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2024&from=2024-12-02&to=2024-12-08',
@@ -187,7 +186,7 @@ function displayPastWeekScores(matches, container) {
 
 
 
-// live  scores
+
 // Live Scores API Endpoint
 const liveScoresURL = 'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all';
 
